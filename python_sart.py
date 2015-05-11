@@ -23,7 +23,7 @@ function documentation below for details):
    
 How to use:
 
-1. Install PsychoPy if you don't already have it.
+1. Install PsychoPy if you haven't already.
 2. Load this file and run it using PsychoPy. Participants will be run on the 
    classic SART task (Robertson et al, 1997) unless one of the sart()
    function parameters is changed.
@@ -45,7 +45,7 @@ monitor......The monitor to be used for the task.
 blocks.......The number of blocks to be presented.
 reps.........The number of repetitions to be presented per block.  Each
              repetition equals 45 trials (5 font sizes X 9 numbers).
-omitNum......The number participants should withold pressing a key on.
+omitNum......The number participants should withhold pressing a key on.
 practice.....If the task should display 18 practice trials that contain 
              feedback on accuracy.
 path.........The directory in which the output file will be placed. Defaults
@@ -53,6 +53,16 @@ path.........The directory in which the output file will be placed. Defaults
 fixed........Whether or not the numbers should be presented in a fixed
              instead of random order (e.g., 1, 2, 3, 4, 5, 6, 7, 8 ,9,
              1, 2, 3, 4, 5, 6, 7, 8, 9...).     
+             
+################################### CITATION ##################################
+
+How to cite this software in APA:
+
+Stothart, C. (2015). Python SART (Version 2) [software]. Retrieved from 
+https://github.com/cstothart/python-cog-tasks.  
+
+For a DOI and other citation information, please see 
+http://figshare.com/authors/Cary_Stothart/394277
      
 ################################## COPYRIGHT ##################################
 
