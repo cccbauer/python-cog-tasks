@@ -1,15 +1,50 @@
 """ Sustained Attention to Response Task (SART)
 
-This module contains the standard SART task.
+Author: Cary Stothart (cary.stothart@gmail.com)
+Date: 05/11/2015
+Version: 2.0
+
+################################# DESCRIPTION #################################
+
+This module contains the standard SART task as detailed by Robertson et al. 
+(1997).
+
+Robertson, H., Manly, T., Andrade, J.,  Baddeley, B. T., & Yiend, J. (1997). 
+‘Oops!’: Performance correlates of everyday attentional failures in traumatic 
+brain injured and 	normal subjects. Neuropsychologia, 35(6), 747-758.
+
+################################## FUNCTIONS ##################################
 
 Self-Contained Functions (Argument=Default Value):
 
 sart(monitor="testMonitor", blocks=1, reps=5, omitNum=3, practice=True, 
      path="")
+     
+################################## COPYRIGHT ##################################
+
+The MIT License (MIT)
+
+Copyright (c) 2015 Cary Robert Stothart
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.     
+
 """
-# Author: Cary Stothart (cary.stothart@gmail.com)
-# Date: 02/08/2013
-# Version: 1.0
 
 import time
 import copy
