@@ -3,22 +3,56 @@
 Author: Cary Stothart (cary.stothart@gmail.com)
 Date: 05/11/2015
 Version: 2.0
+Tested on StandalonePsychoPy-1.82.01-win32
 
 ################################# DESCRIPTION #################################
 
 This module contains the standard SART task as detailed by Robertson et al. 
-(1997).
+(1997). 
+
+The following task attributes can be easily modified (see the sart()
+function documentation below for details):
+    
+1) Number of blocks (default is 1)
+2) Number of font size by number repetitions per trial (default is 5)
+3) Target number (default is 3)
+4) The presentation order of the numbers. Specifically, the
+   numbers can be presented randomly or in a fixed fashion. (default is random)
+5) Whether or not practice trials should be presented at the beginning of the 
+   task.
+   
+How to use:
+
+1. Install PsychoPy if you don't already have it.
+2. Load this file and run it using PsychoPy. Participants will be run on the 
+   classic SART task (Robertson et al, 1997) unless one of the sart()
+   function parameters is changed.
+
+Reference:
 
 Robertson, H., Manly, T., Andrade, J.,  Baddeley, B. T., & Yiend, J. (1997). 
-‘Oops!’: Performance correlates of everyday attentional failures in traumatic 
-brain injured and 	normal subjects. Neuropsychologia, 35(6), 747-758.
+'Oops!': Performance correlates of everyday attentional failures in traumatic 
+brain injured and normal subjects. Neuropsychologia, 35(6), 747-758.
 
 ################################## FUNCTIONS ##################################
 
 Self-Contained Functions (Argument=Default Value):
 
 sart(monitor="testMonitor", blocks=1, reps=5, omitNum=3, practice=True, 
-     path="")
+     path="", fixed=False)
+     
+monitor......The monitor to be used for the task.
+blocks.......The number of blocks to be presented.
+reps.........The number of repetitions to be presented per block.  Each
+             repetition equals 45 trials (5 font sizes X 9 numbers).
+omitNum......The number participants should withold pressing a key on.
+practice.....If the task should display 18 practice trials that contain 
+             feedback on accuracy.
+path.........The directory in which the output file will be placed. Defaults
+             to the directory in which the task is placed.
+fixed........Whether or not the numbers should be presented in a fixed
+             instead of random order (e.g., 1, 2, 3, 4, 5, 6, 7, 8 ,9,
+             1, 2, 3, 4, 5, 6, 7, 8, 9...).     
      
 ################################## COPYRIGHT ##################################
 
@@ -48,21 +82,26 @@ SOFTWARE.
 
 import time
 import copy
+import random
 
 from psychopy import visual, core, data, event, gui
 
 def sart(monitor="testMonitor", blocks=1, reps=5, omitNum=3, practice=True, 
-         path=""):
+         path="", fixed=False):
     """ SART Task.
     
     monitor......The monitor to be used for the task.
     blocks.......The number of blocks to be presented.
-    reps.........The number of repititions to be presented per block.  Each
-                 repitition equals 45 trials (5 font sizes X 9 numbers).
+    reps.........The number of repetitions to be presented per block.  Each
+                 repetition equals 45 trials (5 font sizes X 9 numbers).
     omitNum......The number participants should withold pressing a key on.
-    practice.....Determine whether or not the task will display 18 practice
-                 trials that contain feeback on accuracy.
-    path.........The directory in which the output file will be placed.
+    practice.....If the task should display 18 practice trials that contain 
+                 feedback on accuracy.
+    path.........The directory in which the output file will be placed. Defaults
+                 to the directory in which the task is placed.
+    fixed........Whether or not the numbers should be presented in a fixed
+                 instead of random order (e.g., 1, 2, 3, 4, 5, 6, 7, 8 ,9,
+                 1, 2, 3, 4, 5, 6, 7, 8, 9...).
     """
     partInfo = part_info_gui()
     mainResultList = []
@@ -74,11 +113,11 @@ def sart(monitor="testMonitor", blocks=1, reps=5, omitNum=3, practice=True,
     if practice == True:
         sart_prac_inst(win, omitNum)
         mainResultList.extend(sart_block(win, fb=True, omitNum=omitNum, 
-                              reps=1, bNum=0))
+                              reps=1, bNum=0, fixed=fixed))
     sart_act_task_inst(win)
     for block in range(1, blocks + 1):
         mainResultList.extend(sart_block(win, fb=False, omitNum=omitNum,
-                              reps=reps, bNum=block))
+                              reps=reps, bNum=block, fixed=fixed))
         if (blocks > 1) and (block != blocks):
             sart_break_inst(win)
     outFile.write("part_num\tpart_gender\tpart_age\tpart_school_yr\t" +
@@ -188,7 +227,7 @@ def sart_break_inst(win):
             nbInst.draw()
             win.flip()
 
-def sart_block(win, fb, omitNum, reps, bNum):
+def sart_block(win, fb, omitNum, reps, bNum, fixed):
     mouse = event.Mouse(visible=0)
     xStim = visual.TextStim(win, text="X", height=3.35, color="white", 
                             pos=(0, 0))
@@ -204,9 +243,20 @@ def sart_block(win, fb, omitNum, reps, bNum):
         fontSizes=[1.20, 3.00]
     else:
         fontSizes=[1.20, 1.80, 2.35, 2.50, 3.00]
-    list= data.createFactorialTrialList({"number" : numbers, 
+    list= data.createFactorialTrialList({"number" : numbers,
                                          "fontSize" : fontSizes})
-    trials = data.TrialHandler(list, nReps=reps, method='random')
+    seqList = []
+    for i in range(len(fontSizes)):
+        for number in numbers:
+            random.shuffle(list)
+            for trial in list:
+                if trial["number"] == number and trial not in seqList:
+                    seqList.append(trial)
+                    break
+    if fixed == True:
+        trials = data.TrialHandler(seqList, nReps=reps, method='sequential')
+    else:
+        trials = data.TrialHandler(list, nReps=reps, method='random')
     clock = core.Clock()
     tNum = 0
     resultList =[]
@@ -246,7 +296,7 @@ def sart_trial(win, fb, omitNum, xStim, circleStim, numStim, correctStim,
     maskStartTime = time.clock()
     win.flip()
     waitTime = .90 - (time.clock() - maskStartTime)
-    core.wait(waitTime, hopCPUperiod=waitTime)
+    core.wait(waitTime, hogCPUperiod=waitTime)
     win.flip()
     allKeys = event.getKeys(timeStamped=clock)
     if len(allKeys) != 0:
@@ -255,7 +305,7 @@ def sart_trial(win, fb, omitNum, xStim, circleStim, numStim, correctStim,
         if omitNum == number:
             respAcc = 1
         else:
-            respAcc = 0                
+            respAcc = 0
     else:
         if omitNum == number:
             respAcc = 0
@@ -277,7 +327,7 @@ def sart_trial(win, fb, omitNum, xStim, circleStim, numStim, correctStim,
             str(respRt), str(startTime), str(endTime)]
 
 def main():
-    sart(blocks=1, reps=5, omitNum=3, practice=True)
+    sart()
 
 if __name__ == "__main__":
     main()
