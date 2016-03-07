@@ -1,0 +1,28 @@
+
+# CC begin experiment
+all_target_stim=['221','212','331','313','112','211','332','233','131','311','232','322']
+target_stim=all_target_stim[np.random.randint(len(all_target_stim))]
+prev_target_stim=target_stim
+
+for i in target_stim:
+   if target_stim.count(i) == 1:
+      target_correct=i
+      break
+		
+# CC begin routine
+
+# set next stimulus
+
+set_diff=np.setdiff1d(all_target_stim,prev_target_stim)
+np.random.shuffle(set_diff)
+target_stim=set_diff[0]
+prev_target_stim=target_stim
+
+for i in target_stim:
+   if target_stim.count(i) == 1:
+      target_correct=i
+      break
+#print target_stim
+# logging
+target_loop.addData('target_stim',target_stim)
+target_loop.addData('target_correct',target_correct)

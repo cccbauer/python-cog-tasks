@@ -1,0 +1,29 @@
+# CC begin experiment
+all_ctrl_stim=['100','020','003']
+ctrl_stim=all_ctrl_stim[np.random.randint(len(all_ctrl_stim))]
+prev_ctrl_stim=ctrl_stim
+
+for i in ctrl_stim:
+    if ctrl_stim.count(i) == 1:
+        ctrl_correct=i
+        break
+
+		
+# CC begin routine
+
+
+# set next stimulus
+set_diff=np.setdiff1d(all_ctrl_stim,prev_ctrl_stim)
+np.random.shuffle(set_diff)
+ctrl_stim=set_diff[0]
+prev_ctrl_stim=ctrl_stim
+
+for i in ctrl_stim:
+    if ctrl_stim.count(i) == 1:
+        ctrl_correct=i
+        break
+
+
+# logging
+ctrl_loop.addData('ctrl_stim',ctrl_stim)
+ctrl_loop.addData('ctrl_correct',ctrl_correct)
