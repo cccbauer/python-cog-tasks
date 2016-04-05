@@ -166,7 +166,7 @@ for thisTrial in trials:
     t = 0
     trialClock.reset()  # clock 
     frameN = -1
-    routineTimer.add(0.600000)
+    routineTimer.add(0.48000000)
     sqrVertices = [ [0.2,-0.2], [-0.2,-0.2], [-0.2,0.2], [0.2,0.2] ]
     sans = ['Gill Sans MT', 'Arial','Helvetica','Verdana'] 
     correct = visual.TextStim(win,
@@ -239,7 +239,7 @@ for thisTrial in trials:
             # keyboard checking is just starting
             stim_response.clock.reset()  # now t=0
             event.clearEvents()
-        elif stim_response.status == STARTED and t >= (0 + 0.6):
+        elif stim_response.status == STARTED and t >= (0 + 0.480):
             stim_response.status = STOPPED
         if stim_response.status == STARTED:
             theseKeys = event.getKeys(keyList=['space'])

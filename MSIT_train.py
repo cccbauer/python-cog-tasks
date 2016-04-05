@@ -282,7 +282,7 @@ for thisExp_loop in exp_loop:
         t = 0
         controlClock.reset()  # clock 
         frameN = -1
-        routineTimer.add(1.750000)
+        routineTimer.add(1.2250000)
         # update component parameters for each repeat
         control_stim.setText(ctrl_stim)
         control_resp = event.BuilderKeyResponse()  # create an object of type KeyResponse
@@ -325,7 +325,7 @@ for thisExp_loop in exp_loop:
                 control_stim.tStart = t  # underestimates by a little under one frame
                 control_stim.frameNStart = frameN  # exact frame index
                 control_stim.setAutoDraw(True)
-            elif control_stim.status == STARTED and t >= (0.0 + 1.75):
+            elif control_stim.status == STARTED and t >= (0.0 + 1.225):
                 control_stim.setAutoDraw(False)
             
             # *control_resp* updates
@@ -337,7 +337,7 @@ for thisExp_loop in exp_loop:
                 # keyboard checking is just starting
                 control_resp.clock.reset()  # now t=0
                 event.clearEvents()
-            elif control_resp.status == STARTED and t >= (0.0 + 1.75):
+            elif control_resp.status == STARTED and t >= (0.0 + 1.225):
                 control_resp.status = STOPPED
             if control_resp.status == STARTED:
                 theseKeys = event.getKeys(keyList=['1', '2', '3'])
@@ -411,7 +411,7 @@ for thisExp_loop in exp_loop:
         t = 0
         trialClock.reset()  # clock 
         frameN = -1
-        routineTimer.add(1.750000)
+        routineTimer.add(1.2250000)
         # update component parameters for each repeat
         stim_text.setColor('white', colorSpace='rgb')
         stim_response = event.BuilderKeyResponse()  # create an object of type KeyResponse
@@ -455,7 +455,7 @@ for thisExp_loop in exp_loop:
                 stim_text.tStart = t  # underestimates by a little under one frame
                 stim_text.frameNStart = frameN  # exact frame index
                 stim_text.setAutoDraw(True)
-            elif stim_text.status == STARTED and t >= (0.0 + 1.75):
+            elif stim_text.status == STARTED and t >= (0.0 + 1.225):
                 stim_text.setAutoDraw(False)
             if stim_text.status == STARTED:  # only update if being drawn
                 stim_text.setText(target_stim, log=False)
@@ -469,7 +469,7 @@ for thisExp_loop in exp_loop:
                 # keyboard checking is just starting
                 stim_response.clock.reset()  # now t=0
                 event.clearEvents()
-            elif stim_response.status == STARTED and t >= (0 + 1.75):
+            elif stim_response.status == STARTED and t >= (0 + 1.225):
                 stim_response.status = STOPPED
             if stim_response.status == STARTED:
                 theseKeys = event.getKeys(keyList=['1', '2', '3'])
